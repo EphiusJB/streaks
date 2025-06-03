@@ -6,16 +6,20 @@ import fire_services from '../fire_services'
 import CheckboxComponent from '../components/checkbox'
 import TaskPopup from '../components/addTask'
 import useTasks from '../hooks/useTasks'
+import useTasksWithCompletions from '../hooks/useTasksWithCompletions'
 
 
 function Home(props) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isStart, setIsStart] = useState(true); // State to toggle between start and end tasks
+  const today = new Date() // YYYY-MM-DD
 
   const {startTasks, endTasks, loading} = useTasks(props.auth.currentUser.uid);
-
+  const {allTasks, completedTasks} = useTasksWithCompletions(props.auth.currentUser.uid);
   useEffect(() => {
     loading ? console.log("Loading...!") :     console.log("done");
-    console.log(startTasks, endTasks)
+    // Log the tasks and completed tasks
+    console.log(startTasks, endTasks, "completed tasks: ", completedTasks);
   }, [])
   /* 
   const loadTasks = async()=>{
@@ -112,30 +116,39 @@ function Home(props) {
           </div>
 
           <div className="dash">
-            <div className="daily_progress">
-              <div className="current_day">
-
-              </div>
-              <div className="progress_bar">
-                <div className="bar"></div>
-              </div>
-            </div>
             <div className="tasks">
+              <div className="toggle">
+                <button className={`toggle-btn ${isStart ? 'active' : ''}`} onClick={() => setIsStart(true)}>Start</button>
+                <button className={`toggle-btn ${!isStart ? 'active' : ''}`} onClick={() => setIsStart(false)}>End</button>
+              </div>
+              {isStart ? 
               <div className="start">
-                <h1>Start</h1>
                 {startTasks ? startTasks.map((task) => (
                   <div className="task" key={task.id}>
                     {task.name} <CheckboxComponent uid={props.auth.currentUser.uid} task={task}/>
                   </div>
                 )) : <p>No tasks available</p>}
-              </div>
-              <div className="start">
-                <h1>End</h1>
+              </div>: 
+              <div className="finish">
                 {endTasks ? endTasks.map((task) => (
                   <div className="task" key={task.id}>
                     {task.name} <CheckboxComponent uid={props.auth.currentUser.uid} task={task}/>
                   </div>
                 )) : <p>No tasks available</p>}
+              </div>}
+            </div>
+
+            {/** section to show the daily progress */}
+            <div className="daily_progress">
+              <div className="current_day">
+                <div className="dayTile">
+                  <h2>{today.toLocaleDateString('en-US', { weekday: 'long' })}</h2>
+                  <p>{today.getDate()}/{today.getMonth()}</p>
+                  <p>{completedTasks.length}/{allTasks.length}</p>
+                </div>
+                <div className="progress_bar">
+                  <div className="bar"></div>
+                </div>
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ const useCompRef = (userId, taskId) => {
   useEffect(() => {
     if (!userId || !taskId || !today) return;
   
-    console.log("1 cr. CheckboxComponent rendered with uid:", userId, "and taskId:", taskId);
+    //console.log("1 cr. CheckboxComponent rendered with uid:", userId, "and taskId:", taskId);
   
     const compDocRef = doc(db, "users", userId, "tasks", taskId, "completions", today);
   

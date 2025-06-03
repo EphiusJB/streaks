@@ -23,7 +23,7 @@ function App() {
   return (
     <Routes>
       <Route path='/auth' element={<AuthComponent auth={auth}/>} />
-      <Route path='/dashboard' element={
+      <Route path='/' element={
         <RequireAuth>
           <Home auth={auth} user={user} logout={() => auth.signOut()} loading={loading}/>
         </RequireAuth>

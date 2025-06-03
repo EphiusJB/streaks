@@ -103,13 +103,65 @@ nav{
     margin-top: 10px;
     padding: 0.5em;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
-  .daily_progress{
-    border: solid;
-    height: 80px;
+  .tasks{
+    width: 60%;
   }
 
+  .toggle{
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+    background-color: white;
+    margin-top: 1em;
+  }
+  .toggle-btn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+    &:hover{
+      cursor: pointer;
+      background-color: #f0f0f0;
+    }
+  }
+  .active{
+    border-bottom: solid 3px #05264a;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+  }
+  .start, .finish{
+    padding: 1rem;
+  }
   .task{
     display: flex;
-    border: solid;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    border-radius: 5px;
+    margin-top: 5px;
+    &:hover{
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+  }
+
+  .daily_progress{
+    width: 30%;
+    background-color: white;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid 1px #e0e0e0;
   }
